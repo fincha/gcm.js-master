@@ -22,7 +22,7 @@ import ti.modules.titanium.android.TiJSActivity;
 public class GcmjsActivity extends TiJSActivity {
 
 	public GcmjsActivity() {
-		super("gcm_activity.js");
+		super();
 
 		if (TiApplication.getAppCurrentActivity() == null) {
 			GcmjsModule.logd("Starting gcm_activity.js, app is NOT running.");
@@ -31,5 +31,11 @@ public class GcmjsActivity extends TiJSActivity {
 			GcmjsModule.logd("Starting gcm_activity.js, app IS running.");
 			AppStateListener.appWasNotRunning = false;
 		}
+	}
+
+	@Override
+	public String getUrl()
+	{
+		return "gcm_activity.js";
 	}
 }

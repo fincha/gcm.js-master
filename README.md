@@ -1,3 +1,5 @@
+## Tested with Firebase February 2021
+
 # gcm.js
 
 tdtsh/gcm.js is forked from [https://github.com/iamyellow/gcm.js](https://github.com/iamyellow/gcm.js)
@@ -7,7 +9,7 @@ Thank you iamyellow!
 
 Using Google Play Service instead of the fork original gcm.jar
 
-It supports the Titanium SDK 6.0.x
+It supports the Titanium SDK 8.5.x
 
 It has a very simple API -almost identical to iOS!- yet flexible and powerful, as it executes Javascript whenever a notification is received, no matter if the app is in foreground or background. More info at:
 [Titanium の Android で GCM(Push通知) Google Play Service版 - Qiita 変更する](http://qiita.com/hntn/items/a83072e441ccf4fc715c)
@@ -19,11 +21,7 @@ It has a very simple API -almost identical to iOS!- yet flexible and powerful, a
 > install before android-ndk
 
 ```
-ant clean
-
-ant
-
-./cp_zip.sh
+ti build -p android --build-only
 ```
 
 

@@ -26,6 +26,7 @@ import org.appcelerator.titanium.util.TiRHelper.ResourceNotFoundException;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import android.support.v4.app.NotificationCompat;
 
+import android.util.Log;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -72,10 +73,21 @@ public class GCMIntentService extends IntentService {
 					TiApplication tiapp = TiApplication.getInstance();
 					Intent launcherIntent = new Intent(tiapp, GcmjsService.class);
 					for (String key : extras.keySet()) {
-						String eventKey = key.startsWith("data.") ? key.substring(5) : key;
-						String data = extras.getString(key);
-						// GcmjsModule.logd(TAG + ": eventKey:" + eventKey + "
-						// data:" + data);
+						// Log.i(TAG, "key: " + key);
+
+						String eventKey = key.startsWith("gcm.notification.") ? key.substring(17) : key;
+						String data = null;
+
+						if(key.equals("google.sent_time")) {
+							data = String.valueOf(extras.getLong(key));
+						} else if(key.equals("google.ttl") || key.equals("android.support.content.wakelockid")) {
+							data = String.valueOf(extras.getInt(key));
+						} else {
+							data = extras.getString(key);
+						}
+						
+						Log.i(TAG, "eventKey:" + eventKey + " data:" + data);
+						
 						if (data != null && !"".equals(data)) {
 							launcherIntent.putExtra(eventKey, data);
 						}
@@ -85,10 +97,20 @@ public class GCMIntentService extends IntentService {
 				} else {
 					KrollDict messageData = new KrollDict();
 					for (String key : extras.keySet()) {
-						String eventKey = key.startsWith("data.") ? key.substring(5) : key;
-						String data = extras.getString(key);
-						// GcmjsModule.logd(TAG + ": eventKey:" + eventKey + "
-						// data:" + data);
+						// Log.i(TAG, "key: " + key);
+						
+						String eventKey = key.startsWith("gcm.notification.") ? key.substring(17) : key;
+						String data = null;
+						
+						if(key.equals("google.sent_time")) {
+							data = String.valueOf(extras.getLong(key));
+						} else if(key.equals("google.ttl") || key.equals("android.support.content.wakelockid")) {
+							data = String.valueOf(extras.getInt(key));
+						} else {
+							data = extras.getString(key);
+						}
+
+						Log.i(TAG, "eventKey:" + eventKey + " data:" + data);
 						if (data != null && !"".equals(data)) {
 							messageData.put(eventKey, data);
 						}
